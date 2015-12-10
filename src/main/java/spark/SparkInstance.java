@@ -329,6 +329,12 @@ final class SparkInstance extends Routable {
     }
 
     @Override
+    public void addRoute(String httpMethod, SimpleRouteImpl route) {
+        init();
+        routeMatcher.parseValidateAddRoute(httpMethod + " '" + route.getPath() + "'", route.getAcceptType(), route);
+    }
+
+    @Override
     public void addFilter(String httpMethod, FilterImpl filter) {
         init();
         routeMatcher.parseValidateAddRoute(httpMethod + " '" + filter.getPath() + "'", filter.getAcceptType(), filter);

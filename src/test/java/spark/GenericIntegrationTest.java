@@ -154,14 +154,17 @@ public class GenericIntegrationTest {
         });
 
         get("/throwexception", (request, response) -> {
+            if (true)
             throw new UnsupportedOperationException();
         });
 
         get("/throwsubclassofbaseexception", (request, response) -> {
+            if (true)
             throw new SubclassOfBaseException();
         });
 
         get("/thrownotfound", (request, response) -> {
+            if (true)
             throw new NotFoundException();
         });
 
@@ -176,6 +179,19 @@ public class GenericIntegrationTest {
         exception(NotFoundException.class, (exception, request, response) -> {
             response.status(404);
             response.body(NOT_FOUND_BRO);
+        });
+
+        get("/simple",(request, response) -> {
+            response.body("Simple");
+        });
+
+        get("/simple/null",(request, response) -> {
+            response.body(null);
+        });
+
+        post("/simple/create",(request, response) -> {
+            response.status(201);
+            response.body(request.body());
         });
 
         Spark.awaitInitialization();
@@ -423,4 +439,28 @@ public class GenericIntegrationTest {
         Assert.assertEquals("onMessage: Hi Spark!", events.get(1));
         Assert.assertEquals("onClose: 1000 Bye!", events.get(2));
     }
+
+
+    @Test
+    public void testSimple() throws Exception {
+        SparkTestUtil.UrlResponse response = testUtil.doMethod("GET","/simple",null);
+        Assert.assertEquals("Simple",response.body);
+        Assert.assertEquals(200,response.status);
+    }
+
+    @Test
+    public void testSimpleNull() throws Exception {
+        SparkTestUtil.UrlResponse response = testUtil.doMethod("GET","/simple/null",null);
+        Assert.assertEquals("", response.body);
+        Assert.assertEquals(200, response.status);
+        Assert.assertEquals(0,response.body.length());
+    }
+
+    @Test
+    public void testSimpleCreate() throws Exception {
+        SparkTestUtil.UrlResponse response = testUtil.doMethod("POST","/simple/create","book");
+        Assert.assertEquals(201, response.status);
+        Assert.assertEquals("book",response.body);
+    }
+
 }

@@ -33,6 +33,14 @@ abstract class Routable {
     protected abstract void addRoute(String httpMethod, RouteImpl route);
 
     /**
+     * Adds a route
+     *
+     * @param httpMethod the HTTP method
+     * @param route      the route implementation
+     */
+    protected abstract void addRoute(String httpMethod, SimpleRouteImpl route);
+
+    /**
      * Adds a filter
      *
      * @param httpMethod the HTTP method
@@ -768,5 +776,98 @@ abstract class Routable {
                       ResponseTransformer transformer) {
         addRoute(HttpMethod.patch.name(), ResponseTransformerRouteImpl.create(path, acceptType, route, transformer));
     }
+
+
+    /**
+     * Map the route for HTTP GET requests
+     *
+     * @param path  the path
+     * @param route The route
+     */
+    public void get(final String path, final SimpleRoute route) {
+        addRoute(HttpMethod.get.name(), SimpleRouteImpl.create(path, route));
+    }
+
+    /**
+     * Map the route for HTTP POST requests
+     *
+     * @param path  the path
+     * @param route The route
+     */
+    public void post(String path, SimpleRoute route) {
+        addRoute(HttpMethod.post.name(), SimpleRouteImpl.create(path, route));
+    }
+
+    /**
+     * Map the route for HTTP PUT requests
+     *
+     * @param path  the path
+     * @param route The route
+     */
+    public void put(String path, SimpleRoute route) {
+        addRoute(HttpMethod.put.name(), SimpleRouteImpl.create(path, route));
+    }
+
+    /**
+     * Map the route for HTTP PATCH requests
+     *
+     * @param path  the path
+     * @param route The route
+     */
+    public void patch(String path, SimpleRoute route) {
+        addRoute(HttpMethod.patch.name(), SimpleRouteImpl.create(path, route));
+    }
+
+    /**
+     * Map the route for HTTP DELETE requests
+     *
+     * @param path  the path
+     * @param route The route
+     */
+    public void delete(String path, SimpleRoute route) {
+        addRoute(HttpMethod.delete.name(), SimpleRouteImpl.create(path, route));
+    }
+
+    /**
+     * Map the route for HTTP HEAD requests
+     *
+     * @param path  the path
+     * @param route The route
+     */
+    public void head(String path, SimpleRoute route) {
+        addRoute(HttpMethod.head.name(), SimpleRouteImpl.create(path, route));
+    }
+
+    /**
+     * Map the route for HTTP TRACE requests
+     *
+     * @param path  the path
+     * @param route The route
+     */
+    public void trace(String path, SimpleRoute route) {
+        addRoute(HttpMethod.trace.name(), SimpleRouteImpl.create(path, route));
+    }
+
+    /**
+     * Map the route for HTTP CONNECT requests
+     *
+     * @param path  the path
+     * @param route The route
+     */
+    public void connect(String path, SimpleRoute route) {
+        addRoute(HttpMethod.connect.name(), SimpleRouteImpl.create(path, route));
+    }
+
+    /**
+     * Map the route for HTTP OPTIONS requests
+     *
+     * @param path  the path
+     * @param route The route
+     */
+    public void options(String path, SimpleRoute route) {
+        addRoute(HttpMethod.options.name(), SimpleRouteImpl.create(path, route));
+    }
+
+
 
 }

@@ -30,10 +30,7 @@ import org.slf4j.LoggerFactory;
 import spark.examples.exception.NotFoundException;
 import spark.util.SparkTestUtil;
 
-import static spark.Spark.exception;
-import static spark.Spark.externalStaticFileLocation;
-import static spark.Spark.get;
-import static spark.Spark.staticFileLocation;
+import static spark.Spark.*;
 
 /**
  * Test static files
@@ -79,6 +76,7 @@ public class StaticFilesTest {
         get("/hello", (q, a) -> FO_SHIZZY);
 
         get("/*", (q, a) -> {
+            if (true)
             throw new NotFoundException();
         });
 

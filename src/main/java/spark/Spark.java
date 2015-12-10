@@ -775,6 +775,99 @@ public final class Spark {
         getInstance().patch(path, acceptType, route, transformer);
     }
 
+
+    /**
+     * Map the route for HTTP GET requests
+     *
+     * @param path  the path
+     * @param route The route
+     */
+    public static void get(final String path, final SimpleRoute route) {
+        getInstance().get(path, route);
+    }
+
+    /**
+     * Map the route for HTTP POST requests
+     *
+     * @param path  the path
+     * @param route The route
+     */
+    public static void post(String path, SimpleRoute route) {
+        getInstance().post(path, route);
+    }
+
+    /**
+     * Map the route for HTTP PUT requests
+     *
+     * @param path  the path
+     * @param route The route
+     */
+    public static void put(String path, SimpleRoute route) {
+        getInstance().put(path, route);
+    }
+
+    /**
+     * Map the route for HTTP PATCH requests
+     *
+     * @param path  the path
+     * @param route The route
+     */
+    public static void patch(String path, SimpleRoute route) {
+        getInstance().patch(path, route);
+    }
+
+    /**
+     * Map the route for HTTP DELETE requests
+     *
+     * @param path  the path
+     * @param route The route
+     */
+    public static void delete(String path, SimpleRoute route) {
+        getInstance().delete(path, route);
+    }
+
+    /**
+     * Map the route for HTTP HEAD requests
+     *
+     * @param path  the path
+     * @param route The route
+     */
+    public static void head(String path, SimpleRoute route) {
+        getInstance().head(path, route);
+    }
+
+    /**
+     * Map the route for HTTP TRACE requests
+     *
+     * @param path  the path
+     * @param route The route
+     */
+    public static void trace(String path, SimpleRoute route) {
+        getInstance().trace(path, route);
+    }
+
+    /**
+     * Map the route for HTTP CONNECT requests
+     *
+     * @param path  the path
+     * @param route The route
+     */
+    public static void connect(String path, SimpleRoute route) {
+        getInstance().connect(path, route);
+    }
+
+    /**
+     * Map the route for HTTP OPTIONS requests
+     *
+     * @param path  the path
+     * @param route The route
+     */
+    public static void options(String path, SimpleRoute route) {
+        getInstance().options(path, route);
+    }
+
+
+
     //////////////////////////////////////////////////
     // END Response Transforming Routes
     //////////////////////////////////////////////////

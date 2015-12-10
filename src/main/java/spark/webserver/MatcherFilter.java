@@ -29,15 +29,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import spark.Access;
-import spark.ExceptionHandlerImpl;
-import spark.ExceptionMapper;
-import spark.FilterImpl;
-import spark.HaltException;
-import spark.Request;
-import spark.RequestResponseFactory;
-import spark.Response;
-import spark.RouteImpl;
+import spark.*;
 import spark.route.HttpMethod;
 import spark.route.SimpleRouteMatcher;
 import spark.routematch.RouteMatch;
@@ -155,6 +147,7 @@ public class MatcherFilter implements Filter {
             if (target != null) {
                 try {
                     Object result = null;
+                    String body = null;
                     if (target instanceof RouteImpl) {
                         RouteImpl route = ((RouteImpl) target);
 
@@ -172,9 +165,27 @@ public class MatcherFilter implements Filter {
                         result = route.render(element);
                         result = result!=null?result:"";
                         // result = element.toString(); // TODO: Remove later when render fixed
+                    } else if (target instanceof SimpleRouteImpl) {
+                        SimpleRouteImpl route = (SimpleRouteImpl)target;
+
+                        if (requestWrapper.getDelegate() == null) {
+                            Request request = RequestResponseFactory.create(match, httpRequest);
+                            requestWrapper.setDelegate(request);
+                        } else {
+                            requestWrapper.changeMatch(match);
+                        }
+                        responseWrapper.setDelegate(response);
+
+                        route.handle(requestWrapper,responseWrapper);
+                        body = responseWrapper.body();
+                        if (body==null) {
+                            body = "";
+                        }
                     }
                     if (result != null) {
                         bodyContent = result;
+                    } else if (body != null) {
+                        bodyContent = body;
                     }
                 } catch (HaltException hEx) { // NOSONAR
                     throw hEx; // NOSONAR
